@@ -7,8 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Test GC</Button>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button x:Name="WithoutCapture" Click="WithoutCapture_Click">Grid and handler without capture</Button>
+        <Button x:Name="WithCapture" Click="WithCapture_Click">Grid and handler with capture</Button>
+        <TextBlock x:Name="Status" Text="(click a button)" />
     </StackPanel>
 </Page>

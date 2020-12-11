@@ -29,29 +29,32 @@ namespace CsWinUiUwp
             this.InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        static WeakReference CreateObject(bool withCapture)
         {
-            static WeakReference CreateObject(bool withCapture)
-            {
-                var obj = new Grid();
-                var captured = withCapture ? obj : null;
-                obj.SizeChanged +=
-                       (object sender, SizeChangedEventArgs e) => Debug.Assert(sender == captured);
-                return new WeakReference(obj);
-            };
+            var obj = new Grid();
+            var captured = withCapture ? obj : null;
+            obj.SizeChanged +=
+                    (object sender, SizeChangedEventArgs e) => Debug.Assert(sender == captured);
+            return new WeakReference(obj);
+        }
 
+        private void WithoutCapture_Click(object sender, RoutedEventArgs e)
+        {
             // Succeeds, as there's no cycle between object and event handler
-            //var withoutCapture = CreateObject(withCapture: false);
-            //GC.Collect();
-            //GC.WaitForPendingFinalizers();
-            //Debug.Assert(!withoutCapture.IsAlive);
-
+            var withoutCapture = CreateObject(withCapture: false);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            Status.Text = withoutCapture.IsAlive ? "Grid leaked" : "Grid collected";
+        }
+        
+        private void WithCapture_Click(object sender, RoutedEventArgs e)
+        {
             // Succeeds, even with a cycle between object and event handler
             var withCapture = CreateObject(withCapture: true);
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            //Debug.Assert(!withCapture.IsAlive);
-            myButton.Content = withCapture.IsAlive ? "Grid leaked" : "Grid collected";
+            Status.Text = withCapture.IsAlive ? "Grid leaked" : "Grid collected";
         }
+
     }
 }
