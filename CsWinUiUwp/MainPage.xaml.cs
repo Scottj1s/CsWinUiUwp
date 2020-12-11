@@ -46,11 +46,12 @@ namespace CsWinUiUwp
             //GC.WaitForPendingFinalizers();
             //Debug.Assert(!withoutCapture.IsAlive);
 
-            // Fails, because there's a cycle between object and event handler
+            // Succeeds, even with a cycle between object and event handler
             var withCapture = CreateObject(withCapture: true);
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            Debug.Assert(!withCapture.IsAlive);
+            //Debug.Assert(!withCapture.IsAlive);
+            myButton.Content = withCapture.IsAlive ? "Grid leaked" : "Grid collected";
         }
     }
 }
