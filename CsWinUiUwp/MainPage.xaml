@@ -9,7 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Button x:Name="WithoutCapture" Click="WithoutCapture_Click">Grid and handler without capture</Button>
+        <Button x:Name="WithoutCaptureCheck" Click="WithoutCapture_Check">Check grid and handler without capture</Button>
         <Button x:Name="WithCapture" Click="WithCapture_Click">Grid and handler with capture</Button>
+        <Button x:Name="WithCaptureCheck" Click="WithCapture_Check">Check grid and handler with capture</Button>
         <TextBlock x:Name="Status" Text="(click a button)" />
     </StackPanel>
 </Page>

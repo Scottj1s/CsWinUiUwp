@@ -38,19 +38,27 @@ namespace CsWinUiUwp
             return new WeakReference(obj);
         }
 
+        WeakReference withoutCapture;
         private void WithoutCapture_Click(object sender, RoutedEventArgs e)
         {
             // Succeeds, as there's no cycle between object and event handler
-            var withoutCapture = CreateObject(withCapture: false);
+            withoutCapture = CreateObject(withCapture: false);
+        }
+        private void WithoutCapture_Check(object sender, RoutedEventArgs e)
+        {
             GC.Collect();
             GC.WaitForPendingFinalizers();
             Status.Text = withoutCapture.IsAlive ? "Grid leaked" : "Grid collected";
         }
-        
+
+        WeakReference withCapture;
         private void WithCapture_Click(object sender, RoutedEventArgs e)
         {
             // Succeeds, even with a cycle between object and event handler
-            var withCapture = CreateObject(withCapture: true);
+            withCapture = CreateObject(withCapture: true);
+        }
+        private void WithCapture_Check(object sender, RoutedEventArgs e)
+        {
             GC.Collect();
             GC.WaitForPendingFinalizers();
             Status.Text = withCapture.IsAlive ? "Grid leaked" : "Grid collected";
