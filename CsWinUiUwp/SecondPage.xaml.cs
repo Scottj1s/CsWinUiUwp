@@ -36,7 +36,7 @@ namespace CsWinUiUwp
             GC.WaitForPendingFinalizers();
             var collected = instances.Count((WeakReference wr) => !wr.IsAlive);
             var leaked = instances.Count((WeakReference wr) => wr.IsAlive);
-            System.Diagnostics.Debug.WriteLine("FirstPage instances: ");
+            System.Diagnostics.Debug.WriteLine("SecondPage instances: ");
             System.Diagnostics.Debug.WriteLine("  collected: " + collected);
             System.Diagnostics.Debug.WriteLine("  leaked: " + leaked);
             instances.Add(new WeakReference(this));
